@@ -1,0 +1,10 @@
+clc;
+clear;
+N=[1000,1000];
+x0=100;
+y0=200;
+n=[500,500];
+tic
+rect=drawRect(N,n,x0,y0,0.01,25);
+toc
+imshow(rect,[])

@@ -1,0 +1,11 @@
+clc;
+clear
+N=251;
+n=30;
+cross=drawCross(N,n,0,0);
+%imshow(cross)
+a=FT2Dc(cross);
+subplot(1,2,1)
+imshow(abs(a),[])
+subplot(1,2,2)
+imshow(angle(a),[])

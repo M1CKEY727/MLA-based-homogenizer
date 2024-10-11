@@ -1,0 +1,32 @@
+clc;
+clear
+addpath('plane wave\')
+lambda=532e-6;
+area0=1;
+area=area0;
+z=10;
+N=1000;
+delta=area0/N;
+deltaFreq=1/area0;
+M=3;
+alpha=delta/deltaFreq/M;
+x=-1/delta/2:deltaFreq:1/delta/2-deltaFreq;
+[X,Y]=meshgrid(x,x);
+image=drawSquare(N,50,0,0);
+%imshow(image)
+prop = Propagator(delta, lambda, max(area, size(image, 1) * delta(1)), z,1);
+A_ini=FT2Dc(image).*prop;
+factor1=exp(1i*(pi*alpha).*(X.^2+Y.^2));
+B=A_ini.*factor1/alpha;
+ff=exp(-1i*(pi*alpha).*(X.^2+Y.^2));
+C=FT2Dc(IFT2Dc(B).*IFT2Dc(ff));
+%C=conv2(B,ff);
+final=C.*factor1.*alpha.*delta;
+final=abs(final).^2;
+subplot(1,2,1)
+imshow(final,[])
+F=transform(image,area,lambda,z,[delta,delta]);
+F=abs(F).^2;
+figure(1)
+subplot(1,2,2)
+imshow(F,[])

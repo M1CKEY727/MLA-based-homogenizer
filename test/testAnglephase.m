@@ -1,0 +1,12 @@
+clc;
+clear
+angle=[0.01,5];
+waveLength=640e-9;
+area=[5,10];
+delta=[0.01,0.01];
+phase=anglePhase(angle,waveLength,area,delta);
+imshow(phase,[])
+[gradx,grady]=gradient(phase);
+imshow(gradx,[])
+b=rad2deg(gradx*waveLength/2/pi);
+mesh(b)
